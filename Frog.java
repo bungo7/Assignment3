@@ -8,7 +8,7 @@ import java.util.List;
  * @author David J. Barnes and Michael Kölling
  * @version 2016.02.29 (2)
  */
-public class Rabbit extends Animal
+public class Frog extends Animal
 {
     // Characteristics shared by all rabbits (class variables).
 
@@ -36,7 +36,7 @@ public class Rabbit extends Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Rabbit(boolean randomAge, Field field, Location location)
+    public Frog(boolean randomAge, Field field, Location location)
     {
         super(field, location);
         age = 0;
@@ -50,11 +50,11 @@ public class Rabbit extends Animal
      * around. Sometimes it will breed or die of old age.
      * @param newRabbits A list to return newly born rabbits.
      */
-    public void act(List<Animal> newRabbits)
+    public void act(List<Animal> newFrogs)
     {
         incrementAge();
         if(isAlive()) {
-            giveBirth(newRabbits);            
+            giveBirth(newFrogs);            
             // Try to move into a free location.
             Location newLocation = getField().freeAdjacentLocation(getLocation());
             if(newLocation != null) {
@@ -84,7 +84,7 @@ public class Rabbit extends Animal
      * New births will be made into free adjacent locations.
      * @param newRabbits A list to return newly born rabbits.
      */
-    private void giveBirth(List<Animal> newRabbits)
+    private void giveBirth(List<Animal> newFrog)
     {
         // New rabbits are born into adjacent locations.
         // Get a list of adjacent free locations.
@@ -93,8 +93,8 @@ public class Rabbit extends Animal
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Rabbit young = new Rabbit(false, field, loc);
-            newRabbits.add(young);
+            Frog young = new Frog(false, field, loc);
+            newFrog.add(young);
         }
     }
         

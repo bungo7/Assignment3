@@ -12,7 +12,7 @@ import java.util.Random;
 public class Fox extends Animal
 {
     // Characteristics shared by all foxes (class variables).
-    
+
     // The age at which a fox can start to breed.
     private static final int BREEDING_AGE = 15;
     // The age to which a fox can live.
@@ -24,9 +24,10 @@ public class Fox extends Animal
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
     private static final int RABBIT_FOOD_VALUE = 9;
+    private static final int FROG_FOOD_VALUE = 9;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
-    
+
     // Individual characteristics (instance fields).
     // The fox's age.
     private int age;
@@ -53,7 +54,7 @@ public class Fox extends Animal
             foodLevel = RABBIT_FOOD_VALUE;
         }
     }
-    
+
     /**
      * This is what the fox does most of the time: it hunts for
      * rabbits. In the process, it might breed, die of hunger,
@@ -94,7 +95,7 @@ public class Fox extends Animal
             setDead();
         }
     }
-    
+
     /**
      * Make this fox more hungry. This could result in the fox's death.
      */
@@ -105,7 +106,7 @@ public class Fox extends Animal
             setDead();
         }
     }
-    
+
     /**
      * Look for rabbits adjacent to the current location.
      * Only the first live rabbit is eaten.
@@ -127,10 +128,19 @@ public class Fox extends Animal
                     return where;
                 }
             }
+            else if(animal instanceof Frog){
+                Frog frog = (Frog) animal;
+                if(frog.isAlive()) { 
+                    frog.setDead();
+                    foodLevel = FROG_FOOD_VALUE;
+                    return where;
+                }  
+            }
+
         }
         return null;
     }
-    
+
     /**
      * Check whether or not this fox is to give birth at this step.
      * New births will be made into free adjacent locations.
@@ -149,7 +159,7 @@ public class Fox extends Animal
             newFoxes.add(young);
         }
     }
-        
+
     /**
      * Generate a number representing the number of births,
      * if it can breed.
@@ -172,3 +182,5 @@ public class Fox extends Animal
         return age >= BREEDING_AGE;
     }
 }
+
+
